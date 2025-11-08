@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+
+    img {
+      display: block;
+      width: 100%;         /* Full width of screen */
+      height: auto;        /* Keeps proportions */
+      object-fit: cover;   /* Makes it immersive but not distorted */
+      margin: 0;
+    }
+
+    /* Optional: smooth fade-in effect */
+    img {
+      opacity: 0;
+      animation: fadeIn 1s ease-in forwards;
+    }
+    img:nth-child(1) { animation-delay: 0s; }
+    img:nth-child(2) { animation-delay: 0.1s; }
+    img:nth-child(3) { animation-delay: 0.2s; }
+    img:nth-child(4) { animation-delay: 0.3s; }
+    img:nth-child(5) { animation-delay: 0.4s; }
+    img:nth-child(6) { animation-delay: 0.5s; }
+    img:nth-child(7) { animation-delay: 0.6s; }
+    img:nth-child(8) { animation-delay: 0.7s; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <img src="Images/4_20251108_115135_0001.png" alt="Image 1">
+  <img src="Images/6_20251108_115135_0003.png" alt="Image 2">
+  <img src="Images/7_20251108_115135_0004.png" alt="Image 3">
+  <img src="Images/8_20251108_115135_0005.png" alt="Image 4">
+  <img src="Images/9_20251108_115136_0006.png" alt="Image 5">
+  <img src="Images/10_20251108_115136_0007.png" alt="Image 6">
+  <img src="Images/11_20251108_115136_0008.png" alt="Image 7">
+  <img src="Images/12_20251108_115136_0009.png" alt="Image 8">
+  <a href="C:\Users\HomePC\Desktop\Timothy Taiwo's Portfolio Rampage\Portfolio\home.html">My Portfolio</a>
+  <a href="Fourths Apocalypse.html">Project 1: Fourth's Apocalypse </a>
+</body>
+</html>
