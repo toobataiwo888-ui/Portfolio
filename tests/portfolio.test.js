@@ -11,6 +11,24 @@ const {
   findImagesWithoutAlt,
 } = require('../src/htmlValidator');
 
+// Assets referenced by the pages that are intentionally not yet committed.
+const KNOWN_MISSING = new Set([
+  // Future project pages linked from the homepage footer.
+  'project3.html',
+  'project4.html',
+  'project5.html',
+  'project6.html',
+  // Gallery images for Fourths Apocalypse2.html (not yet added to the repo).
+  'Images/4_20251108_115135_0001.png',
+  'Images/6_20251108_115135_0003.png',
+  'Images/7_20251108_115135_0004.png',
+  'Images/8_20251108_115135_0005.png',
+  'Images/9_20251108_115136_0006.png',
+  'Images/10_20251108_115136_0007.png',
+  'Images/11_20251108_115136_0008.png',
+  'Images/12_20251108_115136_0009.png',
+]);
+
 const ROOT = path.join(__dirname, '..');
 
 const HTML_FILES = ['portfolio public.html', 'Fourths Apocalypse.html', 'Fourths Apocalypse2.html'];
@@ -45,21 +63,18 @@ describe.each(HTML_FILES)('%s', (file) => {
   });
 });
 
-describe('internal link integrity', () => {
-  // Targets that are intentionally not yet in the repo (future project pages).
-  const KNOWN_MISSING = new Set([
-    'project3.html',
-    'project4.html',
-    'project5.html',
-    'project6.html',
-  ]);
-
-  test.each(HTML_FILES)('%s local links resolve to existing files', (file) => {
-    const html = read(file);
-    const brokenLinks = extractLinks(html)
+describe('internal reference integrity', () => {
+  const unresolved = (references) =>
+    references
       .filter(isLocalReference)
       .filter((ref) => !KNOWN_MISSING.has(ref))
       .filter((ref) => !fs.existsSync(resolveLocal(ref)));
-    expect(brokenLinks).toEqual([]);
+
+  test.each(HTML_FILES)('%s local links resolve to existing files', (file) => {
+    expect(unresolved(extractLinks(read(file)))).toEqual([]);
+  });
+
+  test.each(HTML_FILES)('%s local image sources resolve to existing files', (file) => {
+    expect(unresolved(extractSources(read(file)))).toEqual([]);
   });
 });
