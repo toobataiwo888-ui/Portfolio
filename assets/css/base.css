@@ -1,0 +1,9 @@
+/* Shared base styles used across the Fourth's Apocalypse pages.
+   Extracts the body reset, font stack, and dark theme that were
+   previously duplicated inline in each page. */
+body {
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
