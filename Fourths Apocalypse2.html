@@ -4,12 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio Gallery</title>
+  <link rel="stylesheet" href="assets/css/base.css">
   <style>
     body {
-      margin: 0;
-      background-color: #000;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: #fff;
       text-align: center;
     }
 
@@ -38,6 +35,23 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
+
+    /* Visible fallback so a failed image load is surfaced instead of
+       silently showing a broken-image icon. */
+    .load-error {
+      opacity: 1;
+      animation: none;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #1a1a1a;
+      border: 1px dashed #555;
+      color: #bbb;
+      font-size: 16px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -49,7 +63,29 @@
   <img src="Images/10_20251108_115136_0007.png" alt="Image 6">
   <img src="Images/11_20251108_115136_0008.png" alt="Image 7">
   <img src="Images/12_20251108_115136_0009.png" alt="Image 8">
-  <a href="portfolio public.html">My Portfolio</a>
+  <a href="portfolio%20public.html">My Portfolio</a>
   <a href="Fourths Apocalypse.html">Project 1: Fourth's Apocalypse </a>
+
+  <script>
+    // Surface image load failures instead of letting them fail silently.
+    // Each broken image is replaced with a visible, labelled placeholder and
+    // the error is reported to the console so it is not swallowed.
+    document.querySelectorAll("img").forEach(function (img) {
+      img.addEventListener("error", function () {
+        if (img.dataset.loadFailed === "true") {
+          return;
+        }
+        img.dataset.loadFailed = "true";
+        var label = img.getAttribute("alt") || "image";
+        console.error("Failed to load image: " + img.getAttribute("src"));
+        var placeholder = document.createElement("div");
+        placeholder.className = "load-error";
+        placeholder.setAttribute("role", "img");
+        placeholder.setAttribute("aria-label", label + " (failed to load)");
+        placeholder.textContent = "Image unavailable: " + label;
+        img.replaceWith(placeholder);
+      });
+    });
+  </script>
 </body>
 </html>
